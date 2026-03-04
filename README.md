@@ -1,4 +1,4 @@
-# DynamoDB Data Modelling Demo
+# DynamoDB Single Table Data Modelling Demo
 
 This project demonstrates:
 - testing DynamoDB code locally with Testcontainers
