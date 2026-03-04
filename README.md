@@ -1,4 +1,4 @@
-# DynamoDB Local + Single-Table Design (Java)
+# DynamoDB Data Modelling Demo
 
 This project demonstrates:
 - testing DynamoDB code locally with Testcontainers
@@ -148,12 +148,12 @@ Item-level status (`OrderLineItem.itemStatus`):
 
 ```mermaid
 flowchart LR
-  C["Customer Profile Item"] -->|PK "CUST#C1"\nSK "PROFILE#C1"| B["Base Table"]
-  O["Order Root Item"] -->|PK "CUST#C1"\nSK "ORDER#O100"| B
-  I["Order Item Rows"] -->|PK "CUST#C1"\nSK "ORDER#O100#ITEM#I1..N"| B
-  H["Status History Event"] -->|PK "CUST#C1"\nSK "ORDER_STATUS_EVT#O100#V#<zeroPaddedVersion>"| B
+  C["Customer Profile Item"] -->|PK CUST#C1<br/>SK PROFILE#C1| B["Base Table"]
+  O["Order Root Item"] -->|PK CUST#C1<br/>SK ORDER#O100| B
+  I["Order Item Rows"] -->|PK CUST#C1<br/>SK ORDER#O100#ITEM#I1..N| B
+  H["Status History Event"] -->|PK CUST#C1<br/>SK ORDER_STATUS_EVT#O100#V#<zeroPaddedVersion>| B
 
-  O -->|GSI1PK "CUST#C1"\nGSI1SK "ORDER#<createdAt>#O100"| G1["GSI1: Customer Orders"]
-  O -->|GSI2PK "STATUS#FULFILLED"\nGSI2SK "ORDER#<createdAt>#CUST#C1#O100"| G2["GSI2: Global Status"]
-  O -->|GSI3PK "CUST#C1#STATUS#FULFILLED"\nGSI3SK "ORDER#<createdAt>#O100"| G3["GSI3: Customer Status"]
+  O -->|GSI1PK CUST#C1<br/>GSI1SK ORDER#<createdAt>#O100| G1["GSI1: Customer Orders"]
+  O -->|GSI2PK STATUS#FULFILLED<br/>GSI2SK ORDER#<createdAt>#CUST#C1#O100| G2["GSI2: Global Status"]
+  O -->|GSI3PK CUST#C1#STATUS#FULFILLED<br/>GSI3SK ORDER#<createdAt>#O100| G3["GSI3: Customer Status"]
 ```
